@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 namespace Engine
@@ -13,17 +13,17 @@ namespace Engine
 class AssetMan
 {
 private:
-    std::map<std::string, std::shared_ptr<sf::Sprite>> m_sprites;
-    std::map<std::string, std::shared_ptr<sf::Font>> m_fonts;
+    std::map<std::string, sf::Texture> m_textures;
+    std::map<std::string, sf::Font> m_fonts;
 
 public:
     AssetMan();
     ~AssetMan();
 
-    void AddSprite(const std::string& identifier, const std::string& filePath);
-    void AddFont(const std::string& identifier, const std::string& filePath);
+    void AddSprite(const std::string &identifier, const std::string &filePath);
+    void AddFont(const std::string &identifier, const std::string &filePath);
 
-    std::shared_ptr<sf::Sprite> GetSprite(const std::string& identifier) const;
-    std::shared_ptr<sf::Font> GetFont(const std::string& identifier) const;
+    sf::Texture &GetSprite(const std::string &identifier);
+    sf::Font &GetFont(const std::string &identifier);
 };
 } // namespace Engine
