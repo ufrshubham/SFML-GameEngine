@@ -47,10 +47,10 @@ void Engine::StateMan::ProcessStateChange()
             {
                 m_states.pop();
             }
+            // Pause the last state before adding a new one.
+            m_states.top()->Pause();
             m_replace = false;
         }
-        // Pause the last state before adding a new one.
-        m_states.top()->Pause();
 
         // Add should always happen after replace has be processed.
         m_states.push(std::move(m_newState));
@@ -59,4 +59,9 @@ void Engine::StateMan::ProcessStateChange()
         m_states.top()->Init();
         m_add = false;
     }
+}
+
+std::unique_ptr<Engine::State> &Engine::StateMan::GetCurrentState()
+{
+    return m_states.top();
 }

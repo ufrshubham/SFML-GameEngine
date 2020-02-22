@@ -20,7 +20,7 @@ public:
     AssetMan();
     ~AssetMan();
 
-    void AddSprite(const std::string &identifier, const std::string &filePath);
+    void AddTexture(const std::string &identifier, const std::string &filePath);
     void AddFont(const std::string &identifier, const std::string &filePath);
 
     sf::Texture &GetSprite(const std::string &identifier);

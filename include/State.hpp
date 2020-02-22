@@ -27,9 +27,9 @@ public:
     virtual void Draw() = 0;
 
     // Pause this state.
-    virtual void Pause();
-    
+    virtual void Pause(){};
+
     // Start this state.
-    virtual void Start();
+    virtual void Start(){};
 };
 } // namespace Engine

@@ -33,5 +33,7 @@ public:
 
     // Actual state push pop happens here.
     void ProcessStateChange();
+
+    std::unique_ptr<State> &GetCurrentState();
 };
 } // namespace Engine

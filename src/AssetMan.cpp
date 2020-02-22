@@ -8,7 +8,7 @@ Engine::AssetMan::~AssetMan()
 {
 }
 
-void Engine::AssetMan::AddSprite(const std::string &identifier, const std::string &filePath)
+void Engine::AssetMan::AddTexture(const std::string &identifier, const std::string &filePath)
 {
     sf::Texture texture;
     if (texture.loadFromFile(filePath))
