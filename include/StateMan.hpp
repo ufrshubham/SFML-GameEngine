@@ -13,7 +13,12 @@ class StateMan
 {
 private:
     // LIFO.
-    std::stack<State> m_states;
+    std::stack<std::unique_ptr<State>> m_states;
+    std::unique_ptr<State> m_newState;
+
+    bool m_add;
+    bool m_remove;
+    bool m_replace;
 
 public:
     StateMan();
@@ -25,5 +30,8 @@ public:
 
     // Pop off the current state.
     void PopLastState();
+
+    // Actual state push pop happens here.
+    void ProcessStateChange();
 };
 } // namespace Engine

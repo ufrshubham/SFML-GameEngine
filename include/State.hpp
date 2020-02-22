@@ -15,21 +15,21 @@ public:
     virtual ~State(){};
 
     // Initilize everything here just to keep constructor clean.
-    void Init(){};
+    virtual void Init() = 0;
 
     // Handle all the player inputs here.
-    void ProcessInputs(){};
+    virtual void ProcessInputs() = 0;
 
     // Make changes to your game state depending on the processed inputs here.
-    void Update(sf::Time delta){};
+    virtual void Update(sf::Time delta) = 0;
 
     // Draw all your drawables here.
-    void Draw(){};
+    virtual void Draw() = 0;
 
     // Pause this state.
-    virtual void Pause() = 0;
+    virtual void Pause();
     
     // Start this state.
-    virtual void Start() = 0;
+    virtual void Start();
 };
 } // namespace Engine
