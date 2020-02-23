@@ -2,7 +2,7 @@
 
 int main()
 {
-    Game myGame(640, 360, "Demo Game");
+    Game myGame(640, 480, "Demo Game");
     myGame.Run();
     return 0;
 }

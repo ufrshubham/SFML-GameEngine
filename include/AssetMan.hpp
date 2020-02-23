@@ -20,10 +20,10 @@ public:
     AssetMan();
     ~AssetMan();
 
-    void AddTexture(const std::string &identifier, const std::string &filePath);
+    void AddTexture(const std::string &identifier, const std::string &filePath, bool repeated = false);
     void AddFont(const std::string &identifier, const std::string &filePath);
 
-    sf::Texture &GetSprite(const std::string &identifier);
+    sf::Texture &GetTexture(const std::string &identifier);
     sf::Font &GetFont(const std::string &identifier);
 };
 } // namespace Engine

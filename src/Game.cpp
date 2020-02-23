@@ -3,7 +3,7 @@
 
 Game::Game(int width, int height, const std::string &title)
 {
-    m_context->window.create(sf::VideoMode(width, height), title);
+    m_context->window.create(sf::VideoMode(width, height), title, sf::Style::Close);
     m_context->states.AddState(std::make_unique<SplashState>(SplashState(m_context)));
 }
 

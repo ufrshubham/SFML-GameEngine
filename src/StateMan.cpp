@@ -47,8 +47,12 @@ void Engine::StateMan::ProcessStateChange()
             {
                 m_states.pop();
             }
-            // Pause the last state before adding a new one.
-            m_states.top()->Pause();
+            // After removing, pause any the top state if any.
+            if (!m_states.empty())
+            {
+                // Pause the last state before adding a new one.
+                m_states.top()->Pause();
+            }
             m_replace = false;
         }
 

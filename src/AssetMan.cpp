@@ -8,11 +8,12 @@ Engine::AssetMan::~AssetMan()
 {
 }
 
-void Engine::AssetMan::AddTexture(const std::string &identifier, const std::string &filePath)
+void Engine::AssetMan::AddTexture(const std::string &identifier, const std::string &filePath, bool repeated)
 {
     sf::Texture texture;
     if (texture.loadFromFile(filePath))
     {
+        texture.setRepeated(repeated);
         m_textures[identifier] = texture;
     }
 }
@@ -26,7 +27,7 @@ void Engine::AssetMan::AddFont(const std::string &identifier, const std::string 
     }
 }
 
-sf::Texture &Engine::AssetMan::GetSprite(const std::string &identifier)
+sf::Texture &Engine::AssetMan::GetTexture(const std::string &identifier)
 {
     return m_textures.at(identifier);
 }
