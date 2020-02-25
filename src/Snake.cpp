@@ -45,6 +45,11 @@ void Snake::Right()
 	}
 }
 
+void Snake::Grow()
+{
+	m_grow = true;
+}
+
 bool Snake::OnWall()
 {
 	bool isOnWall = false;
@@ -60,6 +65,33 @@ bool Snake::OnWall()
 		isOnWall = true;
 	}
 	return isOnWall;
+}
+
+bool Snake::SelfIntersecting()
+{
+	bool isIntersecting = false;
+
+	for (int i = 0; i < m_body.size() - 1; ++i)
+	{
+		if (m_body.back().getGlobalBounds().intersects(m_body[i].getGlobalBounds()))
+		{
+			isIntersecting = true;
+		}
+	}
+
+	return isIntersecting;
+}
+
+bool Snake::IsHeadOnFood(float x, float y)
+{
+	bool isOnFood = false;
+
+	if (m_body.back().getGlobalBounds().contains(x, y))
+	{
+		isOnFood = true;
+	}
+
+	return isOnFood;
 }
 
 void Snake::Init()
@@ -86,7 +118,15 @@ void Snake::Move(sf::Time dt)
 		newSprite.setTexture(m_context->assets.GetTexture("Snake"));
 		newSprite.setPosition(m_body.back().getPosition() + m_direction);
 
-		m_body.pop_front();
+		if (!m_grow)
+		{
+			m_body.pop_front();
+		}
+		else
+		{
+			m_grow = false;
+		}
+
 		m_body.push_back(newSprite);
 		m_clock.restart();
 	}

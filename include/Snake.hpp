@@ -13,6 +13,7 @@ private:
 	std::deque<sf::Sprite> m_body = std::deque<sf::Sprite>(4);
 	sf::Vector2f m_direction;
 	sf::Clock m_clock;
+	bool m_grow = false;
 
 public:
 	Snake(std::shared_ptr<Context> context);
@@ -22,7 +23,10 @@ public:
 	void Down();
 	void Left();
 	void Right();
+	void Grow();
 	bool OnWall();
+	bool SelfIntersecting();
+	bool IsHeadOnFood(float x, float y);
 
 	void Init();
 	void Move(sf::Time dt);
