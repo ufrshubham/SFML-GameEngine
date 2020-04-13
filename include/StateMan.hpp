@@ -7,7 +7,7 @@
 
 namespace Engine
 {
-// This class will hold all the game states.
+// This class will hold all the game states->
 // New states can be added, removed or replaced.
 class StateMan
 {

@@ -10,29 +10,31 @@ Engine::AssetMan::~AssetMan()
 
 void Engine::AssetMan::AddTexture(const std::string &identifier, const std::string &filePath, bool repeated)
 {
-    sf::Texture texture;
-    if (texture.loadFromFile(filePath))
+    auto texture = std::make_unique<sf::Texture>();
+
+    if (texture->loadFromFile(filePath))
     {
-        texture.setRepeated(repeated);
-        m_textures[identifier] = texture;
+        texture->setRepeated(repeated);
+        m_textures[identifier] = std::move(texture);
     }
 }
 
 void Engine::AssetMan::AddFont(const std::string &identifier, const std::string &filePath)
 {
-    sf::Font font;
-    if (font.loadFromFile(filePath))
+    auto font = std::make_unique<sf::Font>();
+
+    if (font->loadFromFile(filePath))
     {
-        m_fonts[identifier] = font;
+        m_fonts[identifier] = std::move(font);
     }
 }
 
-sf::Texture &Engine::AssetMan::GetTexture(const std::string &identifier)
+const sf::Texture &Engine::AssetMan::GetTexture(const std::string &identifier)
 {
-    return m_textures.at(identifier);
+    return *(m_textures.at(identifier).get());
 }
 
-sf::Font &Engine::AssetMan::GetFont(const std::string &identifier)
+const sf::Font &Engine::AssetMan::GetFont(const std::string &identifier)
 {
-    return m_fonts.at(identifier);
+    return *(m_fonts.at(identifier).get());
 }

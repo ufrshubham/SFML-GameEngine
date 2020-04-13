@@ -6,14 +6,21 @@
 
 struct Context
 {
-    Engine::AssetMan assets;
-    Engine::StateMan states;
-    sf::RenderWindow window;
+    std::unique_ptr<Engine::AssetMan> assets;
+    std::unique_ptr<Engine::StateMan> states;
+    std::unique_ptr<sf::RenderWindow> window;
+
+    Context()
+    {
+        assets = std::make_unique<Engine::AssetMan>();
+        states = std::make_unique<Engine::StateMan>();
+        window = std::make_unique<sf::RenderWindow>();
+    }
 };
 
 class Game
 {
-    std::shared_ptr<Context> m_context = std::make_shared<Context>();
+    std::shared_ptr<Context> m_context;
     const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
 public:

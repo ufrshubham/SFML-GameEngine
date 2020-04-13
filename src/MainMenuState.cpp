@@ -3,7 +3,7 @@
 #include "MainMenuState.hpp"
 #include "GamePlayState.hpp"
 
-MainMenuState::MainMenuState(std::shared_ptr<Context> context) :
+MainMenuState::MainMenuState(std::shared_ptr<Context>& context) :
 	m_context(context)
 {
 }
@@ -14,9 +14,9 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::Init()
 {
-	m_gameTitle.setFont(m_context->assets.GetFont("MainFont"));
-	m_playButton.setFont(m_context->assets.GetFont("MainFont"));
-	m_exitButton.setFont(m_context->assets.GetFont("MainFont"));
+	m_gameTitle.setFont(m_context->assets->GetFont("MainFont"));
+	m_playButton.setFont(m_context->assets->GetFont("MainFont"));
+	m_exitButton.setFont(m_context->assets->GetFont("MainFont"));
 
 	m_gameTitle.setString("sf::Snake");
 	m_gameTitle.setCharacterSize(40);
@@ -26,7 +26,7 @@ void MainMenuState::Init()
 	m_exitButton.setString("Exit");
 
 	m_gameTitle.setOrigin(m_gameTitle.getLocalBounds().width / 2, m_gameTitle.getLocalBounds().height / 2);
-	m_gameTitle.setPosition((float)m_context->window.getSize().x / 2, (float)m_context->window.getSize().y / 2 - 150.f);
+	m_gameTitle.setPosition((float)m_context->window->getSize().x / 2, (float)m_context->window->getSize().y / 2 - 150.f);
 
 	auto bounds = m_playButton.getLocalBounds();
 	m_playButton.setOrigin(bounds.width / 2, bounds.height / 2);
@@ -34,22 +34,22 @@ void MainMenuState::Init()
 	bounds = m_exitButton.getLocalBounds();
 	m_exitButton.setOrigin(bounds.width / 2, bounds.height / 2);
 
-	m_playButton.setPosition(m_context->window.getSize().x / 2.f, (m_context->window.getSize().y / 2.f) - 30.f);
-	m_exitButton.setPosition(m_context->window.getSize().x / 2.f, (m_context->window.getSize().y / 2.f) + 30.f);
+	m_playButton.setPosition(m_context->window->getSize().x / 2.f, (m_context->window->getSize().y / 2.f) - 30.f);
+	m_exitButton.setPosition(m_context->window->getSize().x / 2.f, (m_context->window->getSize().y / 2.f) + 30.f);
 }
 
 void MainMenuState::ProcessInputs()
 {
 	sf::Event event;
-	while (m_context->window.pollEvent(event))
+	while (m_context->window->pollEvent(event))
 	{
-		auto mousePos = sf::Mouse::getPosition(m_context->window);
+		auto mousePos = sf::Mouse::getPosition(*(m_context->window.get()));
 		m_hoveringPlay = m_hoveringExit = false;
 		m_playClicked = m_exitClicked = false;
 
 		if (event.type == sf::Event::Closed)
 		{
-			m_context->window.close();
+			m_context->window->close();
 		}
 		else if (event.type == sf::Event::MouseButtonPressed)
 		{
@@ -96,19 +96,20 @@ void MainMenuState::Update(sf::Time dt)
 	}
 	if (m_playClicked)
 	{
-		m_context->states.AddState(std::make_unique<GamePlayState>(GamePlayState(m_context)));
+		m_context->states->AddState(std::make_unique<GamePlayState>(GamePlayState(m_context)));
 	}
 	if (m_exitClicked)
 	{
-		m_context->window.close();
+		m_context->window->close();
 	}
 }
 
 void MainMenuState::Draw()
 {
-	m_context->window.clear(sf::Color(120, 0, 255, 255));
-	m_context->window.draw(m_gameTitle);
-	m_context->window.draw(m_playButton);
-	m_context->window.draw(m_exitButton);
-	m_context->window.display();
+	//m_context->window->clear(sf::Color(120, 0, 255, 255));
+	m_context->window->clear();
+	m_context->window->draw(m_gameTitle);
+	m_context->window->draw(m_playButton);
+	m_context->window->draw(m_exitButton);
+	m_context->window->display();
 }

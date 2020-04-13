@@ -20,7 +20,7 @@ private:
 	bool m_exitClicked = false;
 
 public:
-	MainMenuState(std::shared_ptr<Context> context);
+	MainMenuState(std::shared_ptr<Context>& context);
 	~MainMenuState();
 
 	void Init() override;

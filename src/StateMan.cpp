@@ -61,6 +61,7 @@ void Engine::StateMan::ProcessStateChange()
 
         // Init the new state.
         m_states.top()->Init();
+        m_states.top()->Start();
         m_add = false;
     }
 }

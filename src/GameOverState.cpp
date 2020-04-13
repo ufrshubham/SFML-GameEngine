@@ -13,9 +13,9 @@ GameOverState::~GameOverState()
 
 void GameOverState::Init()
 {
-	m_gameOverTitle.setFont(m_context->assets.GetFont("MainFont"));
-	m_retryButton.setFont(m_context->assets.GetFont("MainFont"));
-	m_homeButton.setFont(m_context->assets.GetFont("MainFont"));
+	m_gameOverTitle.setFont(m_context->assets->GetFont("MainFont"));
+	m_retryButton.setFont(m_context->assets->GetFont("MainFont"));
+	m_homeButton.setFont(m_context->assets->GetFont("MainFont"));
 
 	m_gameOverTitle.setString("Game Over!!!");
 	m_gameOverTitle.setCharacterSize(40);
@@ -24,27 +24,27 @@ void GameOverState::Init()
 	m_homeButton.setString("Main Menu");
 
 	m_gameOverTitle.setOrigin(m_gameOverTitle.getLocalBounds().width / 2, m_gameOverTitle.getLocalBounds().height / 2);
-	m_gameOverTitle.setPosition((float)m_context->window.getSize().x / 2, (float)m_context->window.getSize().y / 2 - 100.f);
+	m_gameOverTitle.setPosition((float)m_context->window->getSize().x / 2, (float)m_context->window->getSize().y / 2 - 100.f);
 
 	m_retryButton.setOrigin(m_retryButton.getLocalBounds().width / 2, m_retryButton.getLocalBounds().height / 2);
-	m_retryButton.setPosition((float)m_context->window.getSize().x / 2, (float)m_context->window.getSize().y / 2 - 30.f);
+	m_retryButton.setPosition((float)m_context->window->getSize().x / 2, (float)m_context->window->getSize().y / 2 - 30.f);
 
 	m_homeButton.setOrigin(m_homeButton.getLocalBounds().width / 2, m_homeButton.getLocalBounds().height / 2);
-	m_homeButton.setPosition((float)m_context->window.getSize().x / 2, (float)m_context->window.getSize().y / 2 + 30.f);
+	m_homeButton.setPosition((float)m_context->window->getSize().x / 2, (float)m_context->window->getSize().y / 2 + 30.f);
 }
 
 void GameOverState::ProcessInputs()
 {
 	sf::Event event;
-	while (m_context->window.pollEvent(event))
+	while (m_context->window->pollEvent(event))
 	{
-		auto mousePos = sf::Mouse::getPosition(m_context->window);
+		auto mousePos = sf::Mouse::getPosition(*(m_context->window.get()));
 		m_hoveringRetry = m_hoveringHome = false;
 		m_retryClicked = m_homeClicked = false;
 
 		if (event.type == sf::Event::Closed)
 		{
-			m_context->window.close();
+			m_context->window->close();
 		}
 		else if (event.type == sf::Event::MouseButtonPressed)
 		{
@@ -91,19 +91,19 @@ void GameOverState::Update(sf::Time dt)
 	}
 	if (m_retryClicked)
 	{
-		m_context->states.AddState(std::make_unique<GamePlayState>(GamePlayState(m_context)));
+		m_context->states->AddState(std::make_unique<GamePlayState>(GamePlayState(m_context)));
 	}
 	if (m_homeClicked)
 	{
-		m_context->states.AddState(std::make_unique<MainMenuState>(MainMenuState(m_context)));
+		m_context->states->AddState(std::make_unique<MainMenuState>(MainMenuState(m_context)));
 	}
 }
 
 void GameOverState::Draw()
 {
-	m_context->window.clear(sf::Color(255, 0, 0, 255));
-	m_context->window.draw(m_gameOverTitle);
-	m_context->window.draw(m_retryButton);
-	m_context->window.draw(m_homeButton);
-	m_context->window.display();
+	m_context->window->clear(sf::Color(255, 0, 0, 255));
+	m_context->window->draw(m_gameOverTitle);
+	m_context->window->draw(m_retryButton);
+	m_context->window->draw(m_homeButton);
+	m_context->window->display();
 }

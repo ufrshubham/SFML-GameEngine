@@ -8,7 +8,7 @@
 
 - An assets manager to hold your sprites and fonts. Maybe I'll add support for audio assets too, maybe!!!.
 
-- A state manager to hold various game states. Like main menu state, pause state, game over state, wepon selection state, etc.
+- A state manager to hold various game states-> Like main menu state, pause state, game over state, wepon selection state, etc.
 
 ### How to use
 

@@ -4,7 +4,7 @@
 
 namespace Engine
 {
-// Base class for all the game states.
+// Base class for all the game states->
 // States can be like splash screen state, main menu state,
 // pause menu state, game over state, etc.
 class State

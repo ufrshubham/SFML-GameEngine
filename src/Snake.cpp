@@ -55,12 +55,12 @@ bool Snake::OnWall()
 	bool isOnWall = false;
 
 	if ((m_body.back().getPosition().x < m_body.back().getTexture()->getSize().x) || 
-		(m_body.back().getPosition().x > m_context->window.getSize().x - 2 * m_body.back().getTexture()->getSize().x))
+		(m_body.back().getPosition().x > m_context->window->getSize().x - 2 * m_body.back().getTexture()->getSize().x))
 	{
 		isOnWall = true;
 	}
 	else if ((m_body.back().getPosition().y < m_body.back().getTexture()->getSize().y) || 
-		(m_body.back().getPosition().y > m_context->window.getSize().y - 2 * m_body.back().getTexture()->getSize().y))
+		(m_body.back().getPosition().y > m_context->window->getSize().y - 2 * m_body.back().getTexture()->getSize().y))
 	{
 		isOnWall = true;
 	}
@@ -96,13 +96,13 @@ bool Snake::IsHeadOnFood(float x, float y)
 
 void Snake::Init()
 {
-	m_context->assets.AddTexture("Snake", "res/Snake.png");
+	m_context->assets->AddTexture("Snake", "res/Snake.png");
 	float x = 32.f;
 	float y = 32.f;
 
 	for (auto& i : m_body)
 	{
-		i.setTexture(m_context->assets.GetTexture("Snake"));
+		i.setTexture(m_context->assets->GetTexture("Snake"));
 		i.setPosition(x, y);
 		x += 32.f;
 	}
@@ -115,7 +115,7 @@ void Snake::Move(sf::Time dt)
 	if (elapsedTime > 0.1)
 	{
 		sf::Sprite newSprite;
-		newSprite.setTexture(m_context->assets.GetTexture("Snake"));
+		newSprite.setTexture(m_context->assets->GetTexture("Snake"));
 		newSprite.setPosition(m_body.back().getPosition() + m_direction);
 
 		if (!m_grow)
